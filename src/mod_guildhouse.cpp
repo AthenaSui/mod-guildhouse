@@ -35,7 +35,7 @@ public:
 
     void OnCreate(Guild *, Player *leader, const std::string &)
     {
-        ChatHandler(leader->GetSession()).PSendSysMessage("You now own a guild. You can purchase a Guild House!");
+        ChatHandler(leader->GetSession()).PSendSysMessage("你现在拥有一个公会。你可以购买一个公会驻地！");
     }
 
     uint32 GetGuildPhase(Guild *guild)
@@ -145,7 +145,7 @@ public:
     {
         if (!player->GetGuild())
         {
-            ChatHandler(player->GetSession()).PSendSysMessage("You are not a member of a guild.");
+            ChatHandler(player->GetSession()).PSendSysMessage("你不是公会成员。");
             CloseGossipMenuFor(player);
             return false;
         }
@@ -155,14 +155,14 @@ public:
         // Only show Teleport option if guild owns a guild house
         if (has_gh)
         {
-            AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Teleport to Guild House", GOSSIP_SENDER_MAIN, 1);
+            AddGossipItemFor(player, GOSSIP_ICON_TABARD, "传送到公会驻地", GOSSIP_SENDER_MAIN, 1);
 
             // Only show "Sell" option if they have a guild house & have permission to sell it
             Guild *guild = sGuildMgr->GetGuildById(player->GetGuildId());
             Guild::Member const *memberMe = guild->GetMember(player->GetGUID());
             if (memberMe->IsRankNotLower(sConfigMgr->GetOption<int32>("GuildHouseSellRank", 0)))
             {
-                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Sell Guild House!", GOSSIP_SENDER_MAIN, 3, "Are you sure you want to sell your Guild House?", 0, false);
+                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "出售公会驻地", GOSSIP_SENDER_MAIN, 3, "你确定要卖掉你的公会驻地吗？", 0, false);
             }
         }
         else
@@ -170,11 +170,11 @@ public:
             // Only leader of the guild can buy guild house & only if they don't already have a guild house
             if (player->GetGuild()->GetLeaderGUID() == player->GetGUID())
             {
-                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Buy Guild House!", GOSSIP_SENDER_MAIN, 2);
+                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "购买公会驻地！", GOSSIP_SENDER_MAIN, 2);
             }
         }
 
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Close", GOSSIP_SENDER_MAIN, 5);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "关闭", GOSSIP_SENDER_MAIN, 5);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
         return true;
     }
@@ -207,7 +207,7 @@ public:
             QueryResult has_gh = CharacterDatabase.Query("SELECT id, `guild` FROM `guild_house` WHERE guild = {}", player->GetGuildId());
             if (!has_gh)
             {
-                ChatHandler(player->GetSession()).PSendSysMessage("Your guild does not own a Guild House!");
+                ChatHandler(player->GetSession()).PSendSysMessage("你的公会没有公会驻地！");
                 CloseGossipMenuFor(player);
                 return false;
             }
@@ -215,15 +215,15 @@ public:
             // calculate total gold returned: 1) cost of guild house and cost of each purchase made
             if (RemoveGuildHouse(player))
             {
-                ChatHandler(player->GetSession()).PSendSysMessage("You have successfully sold your Guild House.");
-                player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "We just sold our Guild House.", LANG_UNIVERSAL);
+                ChatHandler(player->GetSession()).PSendSysMessage("你已经成功卖掉了你的公会驻地。");
+                player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "我们刚才卖掉了公会驻地。", LANG_UNIVERSAL);
                 player->ModifyMoney(+(sConfigMgr->GetOption<int32>("CostGuildHouse", 10000000) / 2));
                 LOG_INFO("modules", "GUILDHOUSE: Successfully returned money and sold Guild House");
                 CloseGossipMenuFor(player);
             }
             else
             {
-                ChatHandler(player->GetSession()).PSendSysMessage("There was an error selling your Guild House.");
+                ChatHandler(player->GetSession()).PSendSysMessage("出售你的公会驻地时出错。");
                 CloseGossipMenuFor(player);
             }
             break;
@@ -241,9 +241,9 @@ public:
             CharacterDatabase.Query("INSERT INTO `guild_house` (guild, phase, map, positionX, positionY, positionZ, orientation) VALUES ({}, {}, {}, {}, {}, {}, {})", player->GetGuildId(), GetGuildPhase(player), map, posX, posY, posZ, ori);
             player->ModifyMoney(-(sConfigMgr->GetOption<int32>("CostGuildHouse", 10000000)));
             // Msg to purchaser and Msg Guild as purchaser
-            ChatHandler(player->GetSession()).PSendSysMessage("You have successfully purchased a Guild House");
-            player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "We now have a Guild House!", LANG_UNIVERSAL);
-            player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "In chat, type `.guildhouse teleport` or `.gh tele` to meet me there!", LANG_UNIVERSAL);
+            ChatHandler(player->GetSession()).PSendSysMessage("您成功购买了一个公会驻地！");
+            player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "我们现在拥有自己的公会驻地了！", LANG_UNIVERSAL);
+            player->GetGuild()->BroadcastToGuild(player->GetSession(), false, "在聊天窗口输入 .guildhouse teleport 或 .gh tele 可以传送到公会驻地！", LANG_UNIVERSAL);
             LOG_INFO("modules", "GUILDHOUSE: GuildId: '{}' has purchased a guildhouse", player->GetGuildId());
 
             // Spawn a portal and the guild house butler automatically as part of purchase.
@@ -454,13 +454,13 @@ public:
 
         if (result)
         {
-            ChatHandler(player->GetSession()).PSendSysMessage("Your guild already has a Guild House.");
+            ChatHandler(player->GetSession()).PSendSysMessage("你的公会已经拥有一个公会驻地！");
             CloseGossipMenuFor(player);
             return false;
         }
 
         ClearGossipMenuFor(player);
-        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "GM Island", GOSSIP_SENDER_MAIN, 100, "Buy Guild House on GM Island?", sConfigMgr->GetOption<int32>("CostGuildHouse", 10000000), false);
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "GM Island", GOSSIP_SENDER_MAIN, 100, "你确定要在GM Island购买公会驻地吗？", sConfigMgr->GetOption<int32>("CostGuildHouse", 10000000), false);
         // Removing this tease for now, as right now the phasing code is specific go GM Island, so it's not a simple thing to add new areas yet.
         // AddGossipItemFor(player, GOSSIP_ICON_CHAT, " ----- More to Come ----", GOSSIP_SENDER_MAIN, 4);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
@@ -478,14 +478,14 @@ public:
             if (player->GetGuild()->GetLeaderGUID() == player->GetGUID())
             {
                 // Only leader of the guild can buy / sell guild house
-                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Buy Guild House!", GOSSIP_SENDER_MAIN, 2);
-                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Sell Guild House!", GOSSIP_SENDER_MAIN, 3, "Are you sure you want to sell your Guild House?", 0, false);
+                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "购买公会驻地！", GOSSIP_SENDER_MAIN, 2);
+                AddGossipItemFor(player, GOSSIP_ICON_TABARD, "出售公会驻地！", GOSSIP_SENDER_MAIN, 3, "你确定要卖掉公会驻地？", 0, false);
             }
 
-            AddGossipItemFor(player, GOSSIP_ICON_TABARD, "Teleport to Guild House", GOSSIP_SENDER_MAIN, 1);
-            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Close", GOSSIP_SENDER_MAIN, 5);
+            AddGossipItemFor(player, GOSSIP_ICON_TABARD, "传送到公会驻地", GOSSIP_SENDER_MAIN, 1);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "关闭", GOSSIP_SENDER_MAIN, 5);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
-            ChatHandler(player->GetSession()).PSendSysMessage("Your Guild does not own a Guild House");
+            ChatHandler(player->GetSession()).PSendSysMessage("你的公会没有自己的公会驻地");
             return;
         }
 
@@ -519,9 +519,13 @@ public:
     void OnUpdateZone(Player *player, uint32 newZone, uint32 /*newArea*/)
     {
         if (newZone == 876)
-            CheckPlayer(player);
+		{
+			CheckPlayer(player);
+		}
         else
-            player->SetPhaseMask(GetNormalPhase(player), true);
+		{
+			player->SetPhaseMask(GetNormalPhase(player), true);
+		}
     }
 
     bool OnBeforeTeleport(Player *player, uint32 mapid, float x, float y, float z, float orientation, uint32 options, Unit *target)
@@ -546,13 +550,19 @@ public:
     uint32 GetNormalPhase(Player *player) const
     {
         if (player->IsGameMaster())
-            return PHASEMASK_ANYWHERE;
+		{
+			return PHASEMASK_ANYWHERE;
+		}
 
         uint32 phase = player->GetPhaseByAuras();
         if (!phase)
-            return PHASEMASK_NORMAL;
+		{
+			return PHASEMASK_NORMAL;
+		}
         else
-            return phase;
+		{
+			return phase;
+		}
     }
 
     void CheckPlayer(Player *player)
@@ -588,22 +598,28 @@ public:
 
             if (!result || !player->GetGuild())
             {
-                ChatHandler(player->GetSession()).PSendSysMessage("Your guild does not own a Guild House.");
+                ChatHandler(player->GetSession()).PSendSysMessage("你的公会没有自己的公会驻地！");
                 teleportToDefault(player);
                 return;
             }
             player->SetPhaseMask(guildData->phase, true);
         }
         else
-            player->SetPhaseMask(GetNormalPhase(player), true);
+		{
+			player->SetPhaseMask(GetNormalPhase(player), true);
+		}
     }
 
     void teleportToDefault(Player *player)
     {
         if (player->GetTeamId() == TEAM_ALLIANCE)
-            player->TeleportTo(0, -8833.379883f, 628.627991f, 94.006599f, 1.0f);
+		{
+			player->TeleportTo(0, -8833.379883f, 628.627991f, 94.006599f, 1.0f);
+		}
         else
-            player->TeleportTo(1, 1486.048340f, -4415.140625f, 24.187496f, 0.13f);
+		{
+			player->TeleportTo(1, 1486.048340f, -4415.140625f, 24.187496f, 0.13f);
+		}
     }
 };
 
@@ -641,21 +657,21 @@ public:
         Map *map = player->GetMap();
         if (!player->GetGuild() || (player->GetGuild()->GetLeaderGUID() != player->GetGUID()))
         {
-            handler->SendSysMessage("You must be the Guild Master of a guild to use this command!");
+            handler->SendSysMessage("你必须是公会会长才能使用该命令！");
             handler->SetSentErrorMessage(true);
             return false;
         }
 
         if (player->GetAreaId() != 876)
         {
-            handler->SendSysMessage("You must be in your Guild House to use this command!");
+            handler->SendSysMessage("你必须在你的公会驻地才能使用该命令！");
             handler->SetSentErrorMessage(true);
             return false;
         }
 
         if (player->FindNearestCreature(500031, VISIBLE_RANGE, true))
         {
-            handler->SendSysMessage("You already have the Guild House Butler!");
+            handler->SendSysMessage("你已经有公会驻地管理员了！");
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -668,7 +684,7 @@ public:
         Creature *creature = new Creature();
         if (!creature->Create(map->GenerateLowGuid<HighGuid::Unit>(), map, GetGuildPhase(player), 500031, 0, posX, posY, posZ, ori))
         {
-            handler->SendSysMessage("You already have the Guild House Butler!");
+            handler->SendSysMessage("你已经有公会驻地管理员了！");
             handler->SetSentErrorMessage(true);
             delete creature;
             return false;
@@ -681,7 +697,7 @@ public:
         creature = new Creature();
         if (!creature->LoadCreatureFromDB(lowguid, player->GetMap()))
         {
-            handler->SendSysMessage("Something went wrong when adding the Butler.");
+            handler->SendSysMessage("添加公会管理员出错！");
             handler->SetSentErrorMessage(true);
             delete creature;
             return false;
@@ -696,11 +712,13 @@ public:
         Player *player = handler->GetSession()->GetPlayer();
 
         if (!player)
-            return false;
+		{
+			return false;
+		}
 
         if (player->IsInCombat())
         {
-            handler->SendSysMessage("You can't use this command while in combat!");
+            handler->SendSysMessage("你无法在战斗中使用该命令！");
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -710,7 +728,7 @@ public:
 
         if (!result)
         {
-            handler->SendSysMessage("Your guild does not own a Guild House!");
+            handler->SendSysMessage("你的公会没有自己的公会驻地！");
             handler->SetSentErrorMessage(true);
             return false;
         }
@@ -744,9 +762,13 @@ public:
     void OnBeforeWorldObjectSetPhaseMask(WorldObject const *worldObject, uint32 & /*oldPhaseMask*/, uint32 & /*newPhaseMask*/, bool &useCombinedPhases, bool & /*update*/) override
     {
         if (worldObject->GetZoneId() == 876)
-            useCombinedPhases = false;
+		{
+			useCombinedPhases = false;
+		}
         else
-            useCombinedPhases = true;
+		{
+			useCombinedPhases = true;
+		}
     }
 };
 
