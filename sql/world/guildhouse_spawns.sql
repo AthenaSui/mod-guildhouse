@@ -10,6 +10,9 @@ CREATE TABLE IF NOT EXISTS `guild_house_spawns` (
   UNIQUE KEY `entry` (`entry`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
+SET @C_TEMPLATE = 500030;
+SET @GO_TEMPLATE = 500000;
+
 REPLACE INTO `guild_house_spawns` (`id`, `entry`, `posX`, `posY`, `posZ`, `orientation`, `comment`) VALUES
     (1, 26327, 16216.5, 16279.4, 20.9306, 0.552869, 'Paladin Trainer'),
     (2, 26324, 16221.3, 16275.7, 20.9285, 1.37363, 'Druid Trainer'),
@@ -20,7 +23,7 @@ REPLACE INTO `guild_house_spawns` (`id`, `entry`, `posX`, `posY`, `posZ`, `orien
     (7, 26330, 16235.5, 16280.8, 20.9257, 2.18652, 'Shaman Trainer'),
     (8, 26331, 16240.8, 16283.3, 20.9299, 1.86843, 'Warlock Trainer'),
     (9, 26332, 16246.6, 16284.5, 20.9301, 1.68975, 'Warrior Trainer'),
-    (10, 500032, 16224.1, 16284.7, 13.1762, 4.61849, 'Innkeeper'),
+    (10, @C_TEMPLATE + 2, 16224.1, 16284.7, 13.1762, 4.61849, 'Innkeeper'),
     (11, 30605, 16228, 16280.5, 13.1761, 2.98877, 'Banker'),
     (12, 29195, 16252.3, 16284.9, 20.9324, 1.79537, 'Death Knight Trainer'),
     (13, 28694, 16220.5, 16302.3, 13.176, 6.14647, 'Blacksmithing Trainer'),
@@ -45,16 +48,16 @@ REPLACE INTO `guild_house_spawns` (`id`, `entry`, `posX`, `posY`, `posZ`, `orien
     (32, 59853, 16255.4, 16298.8, 13.1755, 4.72478, 'Stove (Object)'),
     (33, 191028, 16255.5, 16304.9, 20.9785, 2.97516, 'Barber Chair (Object)'),
     (34, 187293, 16230.5, 16283.5, 13.9061, 3, 'Guild Vault (Object)'),
-    (35, 500000, 16231.9, 16256.9, 13.8317, 3.02881, 'Portal: Stormwind (Object)'),
-    (36, 500001, 16229.5, 16249.7, 12.9966, 3.02881, 'Portal: Darnassus (Object)'),
-    (37, 500002, 16228.1, 16246.2, 12.3913, 3.02881, 'Portal: Exodar (Object)'),
-    (38, 500003, 16230.7, 16253.4, 13.508, 3.02881, 'Portal: Ironforge (Object)'),
-    (39, 500004, 16216.9, 16259.6, 13.5747, 1.65806, 'Portal: Orgrimmar (Object)'),
-    (40, 500005, 16217.2, 16248.6, 12.207, 1.34336, 'Portal: Silvermoon (Object)'),
-    (41, 500006, 16217.2, 16252, 12.81, 1.34336, 'Portal: Thunder Bluff (Object)'),
-    (42, 500007, 16216.9, 16256, 13.3513, 1.34336, 'Portal: Undercity (Object)'),
-    (43, 500008, 16234.9, 16269.8, 13.6875, 5.6724, 'Portal: Shattrath (Object)'),
-    (44, 500009, 16235.5, 16265.1, 13.7465, 5.4996, 'Portal: Dalaran (Object)'),
+    (35, @GO_TEMPLATE + 0, 16231.9, 16256.9, 13.8317, 3.02881, 'Portal: Stormwind (Object)'),
+    (36, @GO_TEMPLATE + 1, 16229.5, 16249.7, 12.9966, 3.02881, 'Portal: Darnassus (Object)'),
+    (37, @GO_TEMPLATE + 2, 16228.1, 16246.2, 12.3913, 3.02881, 'Portal: Exodar (Object)'),
+    (38, @GO_TEMPLATE + 3, 16230.7, 16253.4, 13.508, 3.02881, 'Portal: Ironforge (Object)'),
+    (39, @GO_TEMPLATE + 4, 16216.9, 16259.6, 13.5747, 1.65806, 'Portal: Orgrimmar (Object)'),
+    (40, @GO_TEMPLATE + 5, 16217.2, 16248.6, 12.207, 1.34336, 'Portal: Silvermoon (Object)'),
+    (41, @GO_TEMPLATE + 6, 16217.2, 16252, 12.81, 1.34336, 'Portal: Thunder Bluff (Object)'),
+    (42, @GO_TEMPLATE + 7, 16216.9, 16256, 13.3513, 1.34336, 'Portal: Undercity (Object)'),
+    (43, @GO_TEMPLATE + 8, 16234.9, 16269.8, 13.6875, 5.6724, 'Portal: Shattrath (Object)'),
+    (44, @GO_TEMPLATE + 9, 16235.5, 16265.1, 13.7465, 5.4996, 'Portal: Dalaran (Object)'),
     (45, 28692, 16236.2, 16315.7, 20.8454, 4.64365, 'Trade Supplies'),
     (46, 28776, 16223.7, 16297.9, 20.8454, 6.17044, 'Tabard Vendor'),
     (47, 4255, 16230.2, 16316.1, 20.8455, 4.64365, 'Food & Drink Vendor'),
@@ -65,4 +68,4 @@ REPLACE INTO `guild_house_spawns` (`id`, `entry`, `posX`, `posY`, `posZ`, `orien
     (52, 28690, 16227, 16267.9, 13.15, 4.6533, 'Stable Master'),
     (53, 9858, 16238.2, 16291.8, 22.9306, 1.55386, 'Neutral Auctioneer'),
     (54, 2622, 16242.8, 16302.1, 13.176, 4.5557, 'Poisons Vendor');
-	(55, 500033, 16242.8, 16302.1, 13.176, 4.5557, '武器大师');
+	(55, @C_TEMPLATE + 3, 16242.8, 16302.1, 13.176, 4.5557, '武器大师');

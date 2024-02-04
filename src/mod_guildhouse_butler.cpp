@@ -13,6 +13,7 @@
 #include "GameObject.h"
 #include "Transport.h"
 #include "CreatureAI.h"
+#include "guildhouse.h"
 
 int cost, GuildHouseInnKeeper, GuildHouseBank, GuildHouseMailBox, GuildHouseAuctioneer, GuildHouseTrainer, GuildHouseVendor, GuildHouseObject, GuildHousePortal, GuildHouseSpirit, GuildHouseProf, GuildHouseBuyRank;
 
@@ -58,7 +59,7 @@ public:
         }
 
         ClearGossipMenuFor(player);
-        AddGossipItemFor(player, GOSSIP_ICON_TALK, "招募旅店老板", GOSSIP_SENDER_MAIN, 500032, "你确定要招募一名旅店老板？", GuildHouseInnKeeper, false);
+        AddGossipItemFor(player, GOSSIP_ICON_TALK, "招募旅店老板", GOSSIP_SENDER_MAIN, GetCreatureEntry(2), "你确定要招募一名旅店老板？", GuildHouseInnKeeper, false);
         AddGossipItemFor(player, GOSSIP_ICON_TALK, "购买邮箱", GOSSIP_SENDER_MAIN, 184137, "你确定要购买一个邮箱？", GuildHouseMailBox, false);
         AddGossipItemFor(player, GOSSIP_ICON_TALK, "招募兽栏管理员", GOSSIP_SENDER_MAIN, 28690, "你确定要招募一名兽栏管理员？", GuildHouseVendor, false);
         AddGossipItemFor(player, GOSSIP_ICON_TALK, "招募职业训练师", GOSSIP_SENDER_MAIN, 2);
@@ -118,21 +119,21 @@ public:
 //            if (player->GetTeamId() == TEAM_ALLIANCE)
 //            {
                 // ALLIANCE players get these options
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 铁炉堡", GOSSIP_SENDER_MAIN, 500003, "你确定要购买一个到铁炉堡的传送门？", GuildHousePortal, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 达纳苏斯", GOSSIP_SENDER_MAIN, 500001, "你确定要购买一个到达纳苏斯的传送门？", GuildHousePortal, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 埃索达", GOSSIP_SENDER_MAIN, 500002, "你确定要购买一个到埃索达的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 铁炉堡", GOSSIP_SENDER_MAIN, GetGameObjectEntry(3), "你确定要购买一个到铁炉堡的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 达纳苏斯", GOSSIP_SENDER_MAIN, GetGameObjectEntry(1), "你确定要购买一个到达纳苏斯的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 埃索达", GOSSIP_SENDER_MAIN, GetGameObjectEntry(2), "你确定要购买一个到埃索达的传送门？", GuildHousePortal, false);
 //            }
 //            else
 //            {
                 // HORDE players get these options
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 幽暗城", GOSSIP_SENDER_MAIN, 500007, "你确定要购买一个到幽暗城的传送门？", GuildHousePortal, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 雷霆崖", GOSSIP_SENDER_MAIN, 500006, "你确定要购买一个到雷霆崖的传送门？", GuildHousePortal, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 银月城", GOSSIP_SENDER_MAIN, 500005, "你确定要购买一个到银月城的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 幽暗城", GOSSIP_SENDER_MAIN, GetGameObjectEntry(7), "你确定要购买一个到幽暗城的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 雷霆崖", GOSSIP_SENDER_MAIN, GetGameObjectEntry(6), "你确定要购买一个到雷霆崖的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 银月城", GOSSIP_SENDER_MAIN, GetGameObjectEntry(5), "你确定要购买一个到银月城的传送门？", GuildHousePortal, false);
 //            }
 
             // These two portals work for either Team
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 沙塔斯城", GOSSIP_SENDER_MAIN, 500008, "你确定要购买一个到沙塔斯城的传送门？", GuildHousePortal, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 达拉然", GOSSIP_SENDER_MAIN, 500009, "你确定要购买一个到达拉然的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 沙塔斯城", GOSSIP_SENDER_MAIN, GetGameObjectEntry(8), "你确定要购买一个到沙塔斯城的传送门？", GuildHousePortal, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 达拉然", GOSSIP_SENDER_MAIN, GetGameObjectEntry(9), "你确定要购买一个到达拉然的传送门？", GuildHousePortal, false);
 
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
@@ -156,7 +157,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "附魔训练师", GOSSIP_SENDER_MAIN, 28693, "你确定要招募一名附魔训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "珠宝加工训练师", GOSSIP_SENDER_MAIN, 28701, "你确定要招募一名珠宝加工训练师？", GuildHouseProf, false);
         	AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "铭文训练师", GOSSIP_SENDER_MAIN, 28702, "你确定要招募一名铭文训练师？", GuildHouseProf, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "武器训练师", GOSSIP_SENDER_MAIN, 500033, "你确定要招募一名武器训练师？", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "武器训练师", GOSSIP_SENDER_MAIN, GetCreatureEntry(3), "你确定要招募一名武器训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
             break;
@@ -177,7 +178,7 @@ public:
             cost = GuildHouseBank;
             SpawnNPC(action, player);
             break;
-        case 500032: // Innkeeper
+        case GetCreatureEntry(2): // Innkeeper
             cost = GuildHouseInnKeeper;
             SpawnNPC(action, player);
             break;
@@ -205,7 +206,7 @@ public:
         case 28703: // Alchemy
         case 28704: // Herbalism
         case 28699: // Tailoring
-        case 190017: // 武器训练师
+        case GetCreatureEntry(3): // 武器训练师
         case 33587: // Cooking
         case 28742: // Fishing
         case 28706: // First Aid
@@ -242,14 +243,14 @@ public:
             cost = GuildHouseObject;
             SpawnObject(action, player);
             break;
-        case 500001: // Darnassus Portal
-        case 500002: // Exodar Portal
-        case 500003: // Ironforge Portal
-        case 500005: // Silvermoon Portal
-        case 500006: // Thunder Bluff Portal
-        case 500007: // Undercity Portal
-        case 500008: // Shattrath Portal
-        case 500009: // Dalaran Portal
+        case GetGameObjectEntry(1): // Darnassus Portal
+        case GetGameObjectEntry(2): // Exodar Portal
+        case GetGameObjectEntry(3): // Ironforge Portal
+        case GetGameObjectEntry(5): // Silvermoon Portal
+        case GetGameObjectEntry(6): // Thunder Bluff Portal
+        case GetGameObjectEntry(7): // Undercity Portal
+        case GetGameObjectEntry(8): // Shattrath Portal
+        case GetGameObjectEntry(9): // Dalaran Portal
             cost = GuildHousePortal;
             SpawnObject(action, player);
             break;
