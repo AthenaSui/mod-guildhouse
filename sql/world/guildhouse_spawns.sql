@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS `guild_house_spawns` (
+DROP TABLE IF EXISTS `guild_house_spawns`;
+CREATE TABLE `guild_house_spawns` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entry` int(11) NOT NULL DEFAULT '0',
   `posX` float NOT NULL DEFAULT '0',
@@ -67,5 +68,6 @@ REPLACE INTO `guild_house_spawns` (`id`, `entry`, `posX`, `posY`, `posZ`, `orien
     (51, 29493, 16229.1, 16286.4, 13.176, 3.03831, 'Ammo & Repair Vendor'),
     (52, 28690, 16227, 16267.9, 13.15, 4.6533, 'Stable Master'),
     (53, 9858, 16238.2, 16291.8, 22.9306, 1.55386, 'Neutral Auctioneer'),
-    (54, 2622, 16242.8, 16302.1, 13.176, 4.5557, 'Poisons Vendor');
-	(55, @C_TEMPLATE + 3, 16242.8, 16302.1, 13.176, 4.5557, '武器大师');
+    (54, 2622, 16242.8, 16302.1, 13.176, 4.5557, 'Poisons Vendor'),
+	(55, @C_TEMPLATE + 3, 16241.4, 16292.1, 13.1757, 1.47929, '武器大师');
+
