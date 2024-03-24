@@ -331,16 +331,16 @@ public:
 
         Map *map = sMapMgr->FindMap(1, 0);
 
-        if (player->GetTeamId() == TEAM_ALLIANCE)
-        {
+//        if (player->GetTeamId() == TEAM_ALLIANCE)
+//        {
             // Portal to Stormwind
             entry = GetGameObjectEntry(0);
-        }
-        else
-        {
+//        }
+//        else
+//        {
             // Portal to Orgrimmar
             entry = GetGameObjectEntry(4);
-        }
+//        }
 
         if (entry == 0)
         {

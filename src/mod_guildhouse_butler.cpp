@@ -157,7 +157,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "附魔训练师", GOSSIP_SENDER_MAIN, 28693, "你确定要招募一名附魔训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "珠宝加工训练师", GOSSIP_SENDER_MAIN, 28701, "你确定要招募一名珠宝加工训练师？", GuildHouseProf, false);
         	AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "铭文训练师", GOSSIP_SENDER_MAIN, 28702, "你确定要招募一名铭文训练师？", GuildHouseProf, false);
-            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "武器训练师", GOSSIP_SENDER_MAIN, GetCreatureEntry(3), "你确定要招募一名武器训练师？", GuildHouseProf, false);
+            AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "武器训练师", GOSSIP_SENDER_MAIN, 190013, "你确定要招募一名武器训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
             SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
             break;
@@ -206,7 +206,7 @@ public:
         case 28703: // Alchemy
         case 28704: // Herbalism
         case 28699: // Tailoring
-        case GetCreatureEntry(3): // 武器训练师
+        case 190013: // Arms Trainer
         case 33587: // Cooking
         case 28742: // Fishing
         case 28706: // First Aid
