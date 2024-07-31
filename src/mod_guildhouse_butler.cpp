@@ -93,7 +93,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "术士训练师", GOSSIP_SENDER_MAIN, 26331, "你确定要招募一名术士训练师？", GuildHouseTrainer, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "战士训练师", GOSSIP_SENDER_MAIN, 26332, "你确定要招募一名战士训练师？", GuildHouseTrainer, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
-            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
             break;
         case 3: // Vendors
             ClearGossipMenuFor(player);
@@ -105,7 +105,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TALK, "弹药和修理商人", GOSSIP_SENDER_MAIN, 29493, "你确定要招募一名弹药和修理商人？", GuildHouseVendor, false);
             AddGossipItemFor(player, GOSSIP_ICON_TALK, "毒药商", GOSSIP_SENDER_MAIN, 2622, "你确定要招募一名毒药商？", GuildHouseVendor, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
-            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
             break;
         case 4: // Objects & Portals
             ClearGossipMenuFor(player);
@@ -135,7 +135,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_TAXI, "传送门: 达拉然", GOSSIP_SENDER_MAIN, GetGameObjectEntry(9), "你确定要购买一个到达拉然的传送门？", GuildHousePortal, false);
 
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
-            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
             break;
 		case 8719: // Alliance Auctioneer
 		case 9856: // Horde Auctioneer
@@ -158,7 +158,7 @@ public:
         	AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "铭文训练师", GOSSIP_SENDER_MAIN, 28702, "你确定要招募一名铭文训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_TRAINER, "武器训练师", GOSSIP_SENDER_MAIN, 190013, "你确定要招募一名武器训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
-            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
             break;
         case 8: // Secondary Profession Trainers
             ClearGossipMenuFor(player);
@@ -166,7 +166,7 @@ public:
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "钓鱼训练师", GOSSIP_SENDER_MAIN, 28742, "你确定要招募一名钓鱼训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "烹饪训练师", GOSSIP_SENDER_MAIN, 33587, "你确定要招募一名烹饪训练师？", GuildHouseProf, false);
             AddGossipItemFor(player, GOSSIP_ICON_CHAT, "返回上一级！", GOSSIP_SENDER_MAIN, 9);
-            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, m_creature->GetGUID());
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
             break;
         case 9: // Go back!
             OnGossipHello(player, creature);
